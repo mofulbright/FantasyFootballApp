@@ -1,0 +1,21 @@
+﻿@model FantasyLeague
+<h1>@Model.LeagueName - @Model.LeagueId</h1>
+<table>
+    <tr>
+        <th>TeamID</th>
+        <th>Team Name</th>
+    </tr>
+    @foreach(var team in Model.Teams)
+    {
+        <tr>
+            <td>@team.TeamId</td>
+            <td>@team.TeamName</td>
+        </tr>
+    }
+</table>
+@Html.BeginForm("StartDraft", "FantasyTeam", "Post")
+{
+    <input type="hidden", asp-for="LeagueName" value="@Model.LeagueName" />
+    <input type="hidden", asp-for="LeagueId" value="@Model.LeagueId" />
+    <input type="submit" value="Begin Draft" />
+}

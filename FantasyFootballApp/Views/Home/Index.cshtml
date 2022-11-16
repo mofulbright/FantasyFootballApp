@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@using (Html.BeginForm("SearchPlayer", "Player", "Post"))
+{
+    <input type="text" placeholder="Enter a Player's name" id="search-fld" name="searchString">
+    <input type="submit" value="Search" />
+}
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>

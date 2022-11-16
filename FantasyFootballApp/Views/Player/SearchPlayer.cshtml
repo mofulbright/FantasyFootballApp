@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Player>
+<h1>Search Results</h1>
+<table class="table table-bordered table-condensed table-hover">
+    <tr>
+        <th>Player Id</th>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Team</th>
+    </tr>
+    @foreach(var player in Model)
+    {
+        <tr>
+           <td><a href=/Player/ViewPlayer/@player.Id>@player.PlayerID</a></td>
+            <td>@player.FirstName @player.LastName</td>
+            <td>@player.Position</td>
+            <td>@player.TeamID</td>
+        </tr>
+    }
+</table>

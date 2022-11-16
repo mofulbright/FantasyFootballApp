@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Player>
+@using (Html.BeginForm("SearchPlayer", "Player", "Post"))
+{
+    <input type="text" placeholder="Enter a Player's name" id="search-fld" name="searchString">
+    <input type="submit" value="Search" />
+}
+<table class="table table-bordered table-condensed table-hover">
+    <tr>
+        <th></th>
+        <th>Player Id</th>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Team</th>
+    </tr>
+    @foreach(var player in Model)
+    {
+        <tr>
+            <td><img src="@player.PhotoUrl" /></td>
+            <td><a href=/Player/ViewPlayer/@player.Id>@player.PlayerID</a></td>
+            <td>@player.FirstName @player.LastName</td>
+            <td>@player.Position</td>
+            <td>@player.TeamID</td>
+        </tr>
+    }
+</table>

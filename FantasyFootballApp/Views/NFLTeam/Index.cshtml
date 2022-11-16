@@ -1,0 +1,36 @@
+﻿@model IEnumerable<NFLTeam>
+
+<table class="table table-bordered table-condensed table-hover">
+    <tr>
+        <th></th>
+        <th>Team</th>
+        <th>Record</th>
+        <th>Division</th>
+        <th>Division Record</th>
+    </tr>
+    @foreach(var team in Model)
+    {
+        <tr>
+            <td><img src="@team.WikipediaLogoUrl" width="100" height="66" /></td>
+            <td><a href=/NFLTeam/ViewTeam/@team.Id>@team.Name (@team.Team)</a></td>
+            @if(team.Ties > 0)
+            {
+                <td>@team.Wins-@team.Losses-@team.Ties</td>
+            }
+            else
+            {
+                <td>@team.Wins-@team.Losses</td>
+            }           
+            <td>@team.Conference @team.Division</td>
+            @if(team.DivisionTies > 0)
+            {
+                <td>@team.DivisionWins-@team.DivisionLosses-@team.DivisionTies</td>
+            }
+            else
+            {
+                <td>@team.DivisionWins-@team.DivisionLosses</td>
+            }  
+
+        </tr>
+    }
+</table>

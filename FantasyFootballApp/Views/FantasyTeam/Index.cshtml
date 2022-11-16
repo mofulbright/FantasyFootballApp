@@ -1,0 +1,125 @@
+﻿@model IEnumerable<FantasyLeague>
+
+<h1>Create a new League</h1>
+<form action="/FantasyTeam/NewLeague">
+    <p1>input league size</p1>
+    <input type="text" name="leagueSize" value=""/>
+    <p1>input league name</p1>
+    <input type="text" name="leagueName" value="" />
+    <input type="submit" value="Create League" />
+</form>
+
+<h1>View a League</h1>
+<form action="/FantasyTeam/ViewLeague">
+    <select class="form-control" name="id" value="">
+            @foreach (var league in Model)
+            {
+                <option value="@league.LeagueId">@league.LeagueName - @league.LeagueId</option>
+            }
+    </select>    
+    <input type="submit" value="View League" />
+</form>
+
+
+
+
+
+
+
+@*@model IEnumerable<FantasyTeamPlayer>
+<table class="table table-bordered table-condensed table-hover">
+    <h1>Quarterbacks</h1>
+    @foreach(var player in Model.Where(x => x.Position == "QB"))
+    {
+        <tr>
+            <td><img src="@player.PhotoUrl"></td>
+
+            <td>@player.Name</td>
+            <td>@player.Position</td> 
+            <td>@player.Team</td>
+            <td>
+                @using(Html.BeginForm("DropPlayer","FantasyTeam"))
+                 {
+                   <input type="hidden" name="Id" value="@player.Id" />
+                   <input type="submit" value="Drop player" />
+                 }
+            </td>
+        </tr>
+    }
+</table>
+<table class="table table-bordered table-condensed table-hover">
+    <h1>Running Backs</h1>
+    @foreach(var player in Model.Where(x => x.Position == "RB"))
+    {
+        <tr>
+            <td><img src="@player.PhotoUrl"></td>
+            <td>@player.Name</td>
+            <td>@player.Position</td>
+            <td>@player.Team</td>
+            <td>
+                @using(Html.BeginForm("DropPlayer","FantasyTeam"))
+                 {
+                   <input type="hidden" name="Id" value="@player.Id" />
+                   <input type="submit" value="Drop player" />
+                 }
+            </td>
+        </tr>
+    }
+</table>
+<table class="table table-bordered table-condensed table-hover">
+    <h1>Wide Receivers</h1>
+    @foreach(var player in Model.Where(x => x.Position == "WR"))
+    {
+        <tr>
+            <td><img src="@player.PhotoUrl"></td>
+            <td>@player.Name</td>
+            <td>@player.Position</td>
+            <td>@player.Team</td>  
+            <td>
+                @using(Html.BeginForm("DropPlayer","FantasyTeam"))
+                 {
+                   <input type="hidden" name="Id" value="@player.Id" />
+                   <input type="submit" value="Drop player" />
+                 }
+            </td>
+        </tr>
+    }
+</table>
+<table class="table table-bordered table-condensed table-hover">
+    <h1>Tight Ends</h1>
+    @foreach(var player in Model.Where(x => x.Position == "TE"))
+    {
+        <tr>
+            <td><img src="@player.PhotoUrl"></td>
+            <td>@player.Name</td>
+            <td>@player.Position</td>
+            <td>@player.Team</td> 
+            <td>
+                @using(Html.BeginForm("DropPlayer","FantasyTeam"))
+                 {
+                   <input type="hidden" name="Id" value="@player.Id" />
+                   <input type="submit" value="Drop player" />
+                 }
+            </td>
+        </tr>
+    }
+</table>
+<table class="table table-bordered table-condensed table-hover">
+    <h1>Kickers</h1>
+    @foreach(var player in Model.Where(x => x.Position == "K"))
+    {
+        <tr>
+            <td><img src="@player.PhotoUrl"></td>
+            <td>@player.Name</td>
+            <td>@player.Position</td>
+            <td>@player.Team</td> 
+            <td>
+                @using(Html.BeginForm("DropPlayer","FantasyTeam"))
+                 {
+                   <input type="hidden" name="Id" value="@player.Id" />
+                   <input type="submit" value="Drop player" />
+                 }
+            </td>
+        </tr>
+    }
+</table>*@

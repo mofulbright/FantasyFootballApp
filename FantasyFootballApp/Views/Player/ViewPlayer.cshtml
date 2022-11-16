@@ -1,0 +1,29 @@
+﻿@model Player
+<table class="table table-bordered table-condensed table-hover">
+    <tr>
+        <th></th>
+        <th>Player Id</th>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Team</th>
+    </tr>
+
+    <tr>
+        <td><img src="@Model.PhotoUrl" /></td>
+        <td>@Model.PlayerID</td>
+        <td>@Model.FirstName @Model.LastName</td>
+        <td>@Model.Position</td>
+        <td>@Model.TeamID</td>
+    </tr>
+    @using (Html.BeginForm("AddToTeam", "FantasyTeam", "Post"))
+    {
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+        <input type="hidden" asp-for="PlayerID" value="@Model.PlayerID" />
+        <input type="hidden" asp-for="FirstName" value="@Model.FirstName">
+        <input type="hidden" asp-for="LastName" value="@Model.LastName">
+        <input type="hidden" asp-for="Position" value="@Model.Position">
+        <input type="hidden" asp-for="TeamID" value="@Model.TeamID">
+        <input type="submit" onclick="return confirm('Add @Model.FirstName @Model.LastName to your Team?')" value="Add to Team" />
+    }
+
+</table>

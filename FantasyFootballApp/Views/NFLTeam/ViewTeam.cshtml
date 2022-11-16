@@ -1,0 +1,16 @@
+﻿@model NFLTeam
+<body>
+<div style="width:1000px">
+<h1>@Model.Name</h1>
+<img src="@Model.WikipediaLogoUrl" width="300" height="200"/>
+@*</div>
+<div>*@
+<h2>Standings</h2>
+<ul>
+    <li>Overall: @Model.Wins-@Model.Losses</li>
+    <li>Division: @Model.DivisionWins-@Model.DivisionLosses</li>
+    <li>Conference: @Model.ConferenceWins-@Model.ConferenceLosses</li>
+</ul>
+</div>
+<h2>Team Info</h2>
+</body>

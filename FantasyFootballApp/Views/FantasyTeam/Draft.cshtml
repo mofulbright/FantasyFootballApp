@@ -1,0 +1,50 @@
+﻿@model DraftViewModel
+<h1>@Model.LeagueName Draft</h1>
+<h3>Currently Drafting: @Model.CurrentTeam.TeamName</h3>
+
+@*@Html.BeginForm("DraftPlayer", "FantasyTeam", "Post")
+{
+    <input type="hidden" name="LeagueName" asp-for="LeagueName" value="@Model.LeagueName">
+    <input type="hidden" asp-for="LeagueId" value="@Model.LeagueId">
+    <input type="hidden" asp-for="TeamToDraft" value="@Model.CurrentTeam.TeamId" />
+    <table class="table table-bordered table-condensed table-hover">
+        <tr>
+            <th></th>
+            <th>ADP</th>
+            <th>Name</th>
+            <th></th>
+        </tr>
+        @for(int i = 0; i < Model.PlayersAvailable.Count(); i++)
+        {
+            <tr>
+                <td><img src="@Model.PlayersAvailable.ToArray()[i].PhotoUrl" /></td>
+                <td>@Model.PlayersAvailable.ToArray()[i].ADP</td>
+                <td>@Model.PlayersAvailable.ToArray()[i].Name</td>
+                <input type="hidden" asp-for="PlayerToDraft" value="@Model.PlayersAvailable.ToArray()[i].PlayerID">
+                <td>    <input type="submit" value="Draft Player">
+
+                </td>
+            
+            </tr>
+        }
+
+    </table>
+}*@
+<table class="table table-bordered table-condensed table-hover">
+        <tr>
+            <th></th>
+            <th>ADP</th>
+            <th>Name</th>
+            <th></th>
+        </tr>
+        
+            @for(int i = 0; i < Model.PlayersAvailable.Count(); i++)
+            {
+                <tr>
+                    <td><img src="@Model.PlayersAvailable.ToArray()[i].PhotoUrl" /></td>
+                        <td>@Model.PlayersAvailable.ToArray()[i].ADP</td>
+                        <td>@Model.PlayersAvailable.ToArray()[i].Name</td>           
+                </tr>
+            }
+
+</table>
