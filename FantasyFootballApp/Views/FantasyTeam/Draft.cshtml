@@ -43,7 +43,16 @@
                 <tr>
                     <td><img src="@Model.PlayersAvailable.ToArray()[i].PhotoUrl" /></td>
                         <td>@Model.PlayersAvailable.ToArray()[i].ADP</td>
-                        <td>@Model.PlayersAvailable.ToArray()[i].Name</td>           
+                        <td>@Model.PlayersAvailable.ToArray()[i].Name</td>   
+                        <form action="/FantasyTeam/DraftPlayer" method="post">
+                            <input type="hidden" name="player" value="@Model.PlayersAvailable[i].PlayerID" />
+                            <input type="hidden" name="team" value="@Model.CurrentTeam.TeamId" />
+                            <input type="hidden" name="league" value="@Model.LeagueId" />
+                            <input type="hidden" name="index" value="@Model.OrderIndex" />
+                            <input type="hidden" name="reversed" value="@Model.Reversed" />
+                            <input type="hidden" name="flipping" value="@Model.Flipping" />
+                            <td><input type="submit" value="Draft Player"/></td>
+                        </form>
                 </tr>
             }
 

@@ -12,5 +12,6 @@
         public int OrderIndex { get; set; }
         public int TeamToDraft { get; set; }
         public int PlayerToDraft { get; set; }
+        public bool Flipping { get; set; }
     }
 }

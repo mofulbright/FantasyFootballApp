@@ -42,6 +42,7 @@ namespace FantasyFootballApp.Controllers
             d.OrderIndex = 0;
             d.Beginning = true;
             d.Reversed = false;
+            d.Flipping = false;
             //_repo.UpdateDraft(d);
             return RedirectToAction("Draft", d);
         }
@@ -60,9 +61,9 @@ namespace FantasyFootballApp.Controllers
             _repo.AddLeagueTeams(league);
             return RedirectToAction("ViewLeague", new { id = league.LeagueId});
         }
-        public IActionResult DraftPlayer(DraftViewModel draft)
+        public IActionResult DraftPlayer(int player, int team, int league, int index, bool reversed, bool flipping)
         {
-            _repo.DraftPlayer(draft.PlayerToDraft, draft.TeamToDraft);
+            var draft = _repo.DraftPlayer(player, team, league, index, reversed, flipping);
             //_repo.UpdateDraft(draft);
             return RedirectToAction("Draft", draft);
         }

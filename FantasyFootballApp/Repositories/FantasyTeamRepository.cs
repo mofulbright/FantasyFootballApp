@@ -96,17 +96,26 @@ namespace FantasyFootballApp.Repositories
             _db.SaveChanges();
         }
 
-        public void DraftPlayer(int playerId, int fantasyTeamId)
+        public DraftViewModel DraftPlayer(int playerId, int fantasyTeamId, int leagueId, int orderIndex, bool reverse, bool flipping)
         {
             var player = _db.FantasyPlayers.Where(x => x.PlayerID == playerId).ToArray()[0];
             player.FantasyTeamID = fantasyTeamId;
             _db.FantasyPlayers.Update(player);
             _db.SaveChanges();
+            var draft = new DraftViewModel()
+            {
+                LeagueId = leagueId,
+                Beginning = false,
+                Reversed = reverse,
+                Flipping = flipping,
+                OrderIndex = orderIndex,
+            };
+            return draft;
         }
 
         public DraftViewModel UpdateDraft(DraftViewModel draft)
         {
-            draft.PlayersAvailable = PlayersAvailable().OrderBy(x => x.ADP).ToArray();
+            draft.PlayersAvailable = PlayersAvailable().OrderBy(x => x.ADP == null ? 1 : 0).ThenBy(x => x.ADP).ToArray();
             draft.Teams = _db.FantasyTeams.Where(x => x.LeagueId == draft.LeagueId);
             if (draft.Beginning)
             {
@@ -117,22 +126,42 @@ namespace FantasyFootballApp.Repositories
             }
             else
             {
-                if (draft.OrderIndex == draft.Teams.Count())
-                {
-                    draft.Reversed = true;
-                }
-                else if (draft.OrderIndex == 0)
-                {
-                    draft.Reversed = false;
-                }
-                if (!draft.Reversed)
+                if (draft.OrderIndex == 0 && !draft.Flipping && !draft.Reversed)
                 {
                     draft.OrderIndex++;
                 }
-                else
+                else if (draft.OrderIndex == 0 && !draft.Flipping && draft.Reversed)
+                {
+                    draft.Flipping = true;
+                    draft.Reversed = false;
+                }
+                else if (draft.OrderIndex == 0 && draft.Flipping && draft.Reversed)
+                {
+                    draft.OrderIndex = 0;
+                    draft.Flipping = false;
+                    draft.Reversed = false;
+                }
+                else if (draft.OrderIndex == draft.Teams.Count() - 1 && !draft.Flipping && !draft.Reversed)
+                {
+                    draft.Flipping = true;
+                    draft.Reversed = true;
+                    draft.OrderIndex = draft.Teams.Count() - 1;
+                }
+                else if (draft.OrderIndex == draft.Teams.Count() - 1 && draft.Flipping && draft.Reversed)
+                {
+                    draft.Flipping = false;
+                    draft.OrderIndex--;
+                }
+                else if (!draft.Reversed)
+                {
+                    draft.OrderIndex++;
+                }
+                else if (draft.Reversed)
                 {
                     draft.OrderIndex--;
                 }
+
+
                 draft.CurrentTeam = draft.Teams.ToArray()[draft.OrderIndex];
             }
 
