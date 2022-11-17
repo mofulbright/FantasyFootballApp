@@ -1,59 +1,58 @@
 ﻿@model DraftViewModel
 <h1>@Model.LeagueName Draft</h1>
-<h3>Currently Drafting: @Model.CurrentTeam.TeamName</h3>
 
-@*@Html.BeginForm("DraftPlayer", "FantasyTeam", "Post")
-{
-    <input type="hidden" name="LeagueName" asp-for="LeagueName" value="@Model.LeagueName">
-    <input type="hidden" asp-for="LeagueId" value="@Model.LeagueId">
-    <input type="hidden" asp-for="TeamToDraft" value="@Model.CurrentTeam.TeamId" />
-    <table class="table table-bordered table-condensed table-hover">
-        <tr>
-            <th></th>
-            <th>ADP</th>
-            <th>Name</th>
-            <th></th>
-        </tr>
-        @for(int i = 0; i < Model.PlayersAvailable.Count(); i++)
-        {
+<div class="row">
+
+    <div class="column">
+        <h3>Currently Drafting: @Model.CurrentTeam.TeamName</h3>
+        <table style="width:600px" class="table table-bordered table-condensed table-hover">
             <tr>
-                <td><img src="@Model.PlayersAvailable.ToArray()[i].PhotoUrl" /></td>
-                <td>@Model.PlayersAvailable.ToArray()[i].ADP</td>
-                <td>@Model.PlayersAvailable.ToArray()[i].Name</td>
-                <input type="hidden" asp-for="PlayerToDraft" value="@Model.PlayersAvailable.ToArray()[i].PlayerID">
-                <td>    <input type="submit" value="Draft Player">
-
-                </td>
-            
+                <th></th>
+                <th>ADP</th>
+                <th>Name</th>
+                <th>Pos</th>
+                <th></th>
             </tr>
-        }
-
-    </table>
-}*@
-<table class="table table-bordered table-condensed table-hover">
-        <tr>
-            <th></th>
-            <th>ADP</th>
-            <th>Name</th>
-            <th></th>
-        </tr>
         
-            @for(int i = 0; i < Model.PlayersAvailable.Count(); i++)
-            {
-                <tr>
-                    <td><img src="@Model.PlayersAvailable.ToArray()[i].PhotoUrl" /></td>
-                        <td>@Model.PlayersAvailable.ToArray()[i].ADP</td>
-                        <td>@Model.PlayersAvailable.ToArray()[i].Name</td>   
-                        <form action="/FantasyTeam/DraftPlayer" method="post">
-                            <input type="hidden" name="player" value="@Model.PlayersAvailable[i].PlayerID" />
-                            <input type="hidden" name="team" value="@Model.CurrentTeam.TeamId" />
-                            <input type="hidden" name="league" value="@Model.LeagueId" />
-                            <input type="hidden" name="index" value="@Model.OrderIndex" />
-                            <input type="hidden" name="reversed" value="@Model.Reversed" />
-                            <input type="hidden" name="flipping" value="@Model.Flipping" />
-                            <td><input type="submit" value="Draft Player"/></td>
-                        </form>
-                </tr>
-            }
+                @for(int i = 0; i < Model.PlayersAvailable.Count(); i++)
+                {
+                    <tr>
+                        <td><img src="@Model.PlayersAvailable.ToArray()[i].PhotoUrl" /></td>
+                            <td>@Model.PlayersAvailable.ToArray()[i].ADP</td>
+                            <td>@Model.PlayersAvailable.ToArray()[i].Name</td>  
+                            <td>@Model.PlayersAvailable[i].Position</td>
+                            <form action="/FantasyTeam/DraftPlayer" method="post">
+                                <input type="hidden" name="player" value="@Model.PlayersAvailable[i].PlayerID" />
+                                <input type="hidden" name="team" value="@Model.CurrentTeam.TeamId" />
+                                <input type="hidden" name="league" value="@Model.LeagueId" />
+                                <input type="hidden" name="index" value="@Model.OrderIndex" />
+                                <input type="hidden" name="reversed" value="@Model.Reversed" />
+                                <input type="hidden" name="flipping" value="@Model.Flipping" />
+                                <td><input type="submit" value="Draft Player"/></td>
+                            </form>
+                    </tr>
+                }
 
+        </table>
+    </div>
+        
+<div class="column">
+    <h3>Your Team</h3>
+<table style="width:600px" class="table table-bordered table-condensed table-hover">
+    <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Pos</th>
+    </tr>
+    @foreach(var player in Model.CurrentTeamsPlayers)
+    {
+        <tr>
+            <td><img src="@player.PhotoUrl" /></td>
+            <td>@player.Name</td>
+            <td>@player.Position</td>
+        </tr>
+    }
 </table>
+</div>
+</div>
+

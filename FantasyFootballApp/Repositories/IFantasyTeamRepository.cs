@@ -13,7 +13,7 @@ namespace FantasyFootballApp.Repositories
         public FantasyLeague InitLeague(FantasyLeague league);
         public IEnumerable<FantasyTeamPlayer> PlayersAvailable();
         public void InitFantasyPlayers();
-        public DraftViewModel DraftPlayer(int playerId, int fantasyTeamId, int leagueId, int orderIndex, bool reverse, bool flipping);
+        public DraftViewModel DraftPlayer(int playerId, int fantasyTeamId, int leagueId, int orderIndex, int reverse, int flipping);
         public DraftViewModel UpdateDraft(DraftViewModel draft);
         public void Save();
     }

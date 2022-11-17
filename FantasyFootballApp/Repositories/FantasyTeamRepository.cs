@@ -96,7 +96,7 @@ namespace FantasyFootballApp.Repositories
             _db.SaveChanges();
         }
 
-        public DraftViewModel DraftPlayer(int playerId, int fantasyTeamId, int leagueId, int orderIndex, bool reverse, bool flipping)
+        public DraftViewModel DraftPlayer(int playerId, int fantasyTeamId, int leagueId, int orderIndex, int reverse, int flipping)
         {
             var player = _db.FantasyPlayers.Where(x => x.PlayerID == playerId).ToArray()[0];
             player.FantasyTeamID = fantasyTeamId;
@@ -126,46 +126,47 @@ namespace FantasyFootballApp.Repositories
             }
             else
             {
-                if (draft.OrderIndex == 0 && !draft.Flipping && !draft.Reversed)
+                if (draft.OrderIndex == 0 && draft.Flipping == 0 && draft.Reversed == 0)
                 {
                     draft.OrderIndex++;
                 }
-                else if (draft.OrderIndex == 0 && !draft.Flipping && draft.Reversed)
+                else if (draft.OrderIndex == 0 && draft.Flipping == 0 && draft.Reversed != 0)
                 {
-                    draft.Flipping = true;
-                    draft.Reversed = false;
+                    draft.Flipping = 1;
+                    draft.Reversed = 0;
                 }
-                else if (draft.OrderIndex == 0 && draft.Flipping && draft.Reversed)
+                else if (draft.OrderIndex == 0 && draft.Flipping != 0 && draft.Reversed == 0)
                 {
                     draft.OrderIndex = 0;
-                    draft.Flipping = false;
-                    draft.Reversed = false;
+                    draft.Flipping = 0;
+                    draft.OrderIndex++;
                 }
-                else if (draft.OrderIndex == draft.Teams.Count() - 1 && !draft.Flipping && !draft.Reversed)
+                else if (draft.OrderIndex == draft.Teams.Count() - 1 && draft.Flipping == 0 && draft.Reversed == 0)
                 {
-                    draft.Flipping = true;
-                    draft.Reversed = true;
+                    draft.Flipping = 1;
+                    draft.Reversed = 1;
                     draft.OrderIndex = draft.Teams.Count() - 1;
                 }
-                else if (draft.OrderIndex == draft.Teams.Count() - 1 && draft.Flipping && draft.Reversed)
+                else if (draft.OrderIndex == draft.Teams.Count() - 1 && draft.Flipping != 0 && draft.Reversed != 0)
                 {
-                    draft.Flipping = false;
+                    draft.Flipping = 0;
                     draft.OrderIndex--;
                 }
-                else if (!draft.Reversed)
+                else if (draft.Reversed == 0)
                 {
                     draft.OrderIndex++;
                 }
-                else if (draft.Reversed)
+                else if (draft.Reversed != 0)
                 {
                     draft.OrderIndex--;
                 }
 
 
                 draft.CurrentTeam = draft.Teams.ToArray()[draft.OrderIndex];
+                
             }
 
-
+            draft.CurrentTeamsPlayers = _db.FantasyPlayers.Where(x => x.FantasyTeamID == draft.CurrentTeam.TeamId);
             return draft;
         }
     }
